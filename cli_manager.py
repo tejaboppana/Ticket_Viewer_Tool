@@ -1,4 +1,3 @@
-import json
 from tabulate import tabulate
 import datetime
 from pprint import pprint
