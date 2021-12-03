@@ -1,6 +1,3 @@
-from argparse import ArgumentParser
-import csv
-import json
 from pprint import pprint
 import requests
 from requests.exceptions import HTTPError

@@ -38,11 +38,14 @@ def print_tickets_page(ticket_list,start,end):                                  
     for ticket in ticket_list[start:end]:
         table_list.append([ticket['id'],ticket['subject'],format_date(ticket['created_at']),ticket['requester_id'],ticket['submitter_id']])
     print(tabulate(table_list,headers=["TICKET_ID","SUBJECT","CREATION_TIME","REQUESTER_ID","SUBMITTER_ID"],tablefmt="pipe"))
+    print('\n');
     
 def display_all(ticket_list,start):                                         # Function which helps users to naviagte through multiple pages 
     begin = start
+    invalid_flag = False
     while True:
-        print_tickets_page(ticket_list,begin,begin+MAXTICKETS_PERPAGE)
+        if invalid_flag == False:
+            print_tickets_page(ticket_list,begin,begin+MAXTICKETS_PERPAGE)
         if begin > 0:                                                       # Condition for pages to the left to exist 
             left_pages = True
             print('Press \'L\' to go to the previous page \n')
@@ -58,13 +61,17 @@ def display_all(ticket_list,start):                                         # Fu
 
         if user_input == 'L' and left_pages== True:
             begin = begin - MAXTICKETS_PERPAGE
+            invalid_flag = False
         elif user_input == 'R' and right_pages == True:
             begin = begin + MAXTICKETS_PERPAGE
+            invalid_flag = False
         elif user_input == 'M':
             print('Returning to the Main Menu \n')
+            invalid_flag == False
             return
         else:
             print('Enter a Valid Input \n')
+            invalid_flag = True
      
 
 def print_individual_ticket(ticket):                    # printing individual tickets 
